@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.araujojpc.wms.entities.Item;
 import com.araujojpc.wms.repositories.ItemRepository;
+import com.araujojpc.wms.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ItemService {
@@ -21,6 +22,6 @@ public class ItemService {
 	
 	public Item findById(Long id) {
 		Optional<Item> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 }
