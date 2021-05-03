@@ -1,18 +1,21 @@
 package com.araujojpc.wms.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "tb_item")
-public class Item implements Serializable {
+@Table(name = "tb_category")
+public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -20,19 +23,18 @@ public class Item implements Serializable {
 	private Long id;
 	private String name;
 
-	@ManyToOne
-	@JoinColumn(name="id_category")
-	private Category category;
+	@JsonIgnore
+	@OneToMany(mappedBy = "category")
+	private Set<Item> items = new HashSet<>();
 
-	public Item() {
+	public Category() {
 		super();
 	}
 
-	public Item(Long id, String name, Category category) {
+	public Category(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.category = category;
 	}
 
 	public Long getId() {
@@ -51,12 +53,8 @@ public class Item implements Serializable {
 		this.name = name;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
+	public Set<Item> getItems() {
+		return items;
 	}
 
 	@Override
@@ -75,7 +73,7 @@ public class Item implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Item other = (Item) obj;
+		Category other = (Category) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
