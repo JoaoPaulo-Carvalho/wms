@@ -14,7 +14,7 @@ import com.araujojpc.wms.services.ItemService;
 
 @RestController
 @RequestMapping(value = "/items")
-public class ItemResources {
+public class ItemResource {
 
 	@Autowired
 	private ItemService service;

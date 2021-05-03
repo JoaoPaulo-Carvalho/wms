@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.araujojpc.wms.entities.Movement;
-import com.araujojpc.wms.services.MovementService;
+import com.araujojpc.wms.entities.Category;
+import com.araujojpc.wms.services.CategoryService;
 
 @RestController
-@RequestMapping(value = "/movements")
-public class MovementResources {
+@RequestMapping(value = "/categories")
+public class CategoryResource {
 
 	@Autowired
-	private MovementService service;
+	private CategoryService service;
 
 	@GetMapping
-	private ResponseEntity<List<Movement>> findAll() {
-		List<Movement> list = service.findAll();
+	private ResponseEntity<List<Category>> findAll() {
+		List<Category> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 }
