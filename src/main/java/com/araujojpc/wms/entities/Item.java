@@ -71,6 +71,10 @@ public class Item implements Serializable {
 	public Set<ItemMovement> getMovements() {
 		return movements;
 	}
+	
+	public Double getTotal() {
+		return movements.stream().map(m -> m.getQuantity()).reduce(0.0, (x, y) -> x + y);
+	}
 
 	@Override
 	public int hashCode() {
