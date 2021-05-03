@@ -1,6 +1,8 @@
 package com.araujojpc.wms.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_item")
@@ -23,6 +28,10 @@ public class Item implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_category")
 	private Category category;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.item")
+	private Set<ItemMovement> movements = new HashSet<>();
 
 	public Item() {
 		super();
@@ -57,6 +66,10 @@ public class Item implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Set<ItemMovement> getMovements() {
+		return movements;
 	}
 
 	@Override

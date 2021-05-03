@@ -10,8 +10,10 @@ import org.springframework.context.annotation.Profile;
 
 import com.araujojpc.wms.entities.Category;
 import com.araujojpc.wms.entities.Item;
+import com.araujojpc.wms.entities.ItemMovement;
 import com.araujojpc.wms.entities.Movement;
 import com.araujojpc.wms.repositories.CategoryRepository;
+import com.araujojpc.wms.repositories.ItemMovementRepository;
 import com.araujojpc.wms.repositories.ItemRepository;
 import com.araujojpc.wms.repositories.MovementRepository;
 
@@ -27,6 +29,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private MovementRepository movementRepository;
+
+	@Autowired
+	private ItemMovementRepository itemMovementRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -48,8 +53,16 @@ public class TestConfig implements CommandLineRunner {
 		Movement mv1 = new Movement(null, Instant.now(), "Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 		Movement mv2 = new Movement(null, Instant.now(),
 				"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...");
+		Movement mv3 = new Movement(null, Instant.now(), "Lorem ipsum dolor sit amet.");
 
-		movementRepository.saveAll(Arrays.asList(mv1, mv2));
+		movementRepository.saveAll(Arrays.asList(mv1, mv2, mv3));
 
+		ItemMovement im1 = new ItemMovement(mv1, it2, 10.0);
+		ItemMovement im2 = new ItemMovement(mv1, it4, 2.0);
+		ItemMovement im3 = new ItemMovement(mv2, it1, 50.0);
+		ItemMovement im4 = new ItemMovement(mv2, it3, 100.0);
+		ItemMovement im5 = new ItemMovement(mv3, it2, -8.0);
+
+		itemMovementRepository.saveAll(Arrays.asList(im1, im2, im3, im4, im5));
 	}
 }
