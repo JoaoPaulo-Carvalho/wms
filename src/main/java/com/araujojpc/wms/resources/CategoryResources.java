@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.araujojpc.wms.entities.Item;
-import com.araujojpc.wms.services.ItemService;
+import com.araujojpc.wms.entities.Category;
+import com.araujojpc.wms.services.CategoryService;
 
 @RestController
-@RequestMapping(value = "/items")
-public class ItemResources {
+@RequestMapping(value = "/categories")
+public class CategoryResources {
 
 	@Autowired
-	private ItemService service;
+	private CategoryService service;
 	
 	@GetMapping
-	private ResponseEntity<List<Item>> findAll() {
-		List<Item> items = service.findAll();
+	private ResponseEntity<List<Category>> findAll() {
+		List<Category> items = service.findAll();
 		return ResponseEntity.ok().body(items);
 	}
 }
