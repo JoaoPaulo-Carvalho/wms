@@ -17,10 +17,10 @@ public class CategoryResources {
 
 	@Autowired
 	private CategoryService service;
-	
+
 	@GetMapping
 	private ResponseEntity<List<Category>> findAll() {
-		List<Category> items = service.findAll();
-		return ResponseEntity.ok().body(items);
+		List<Category> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 }

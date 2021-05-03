@@ -21,7 +21,7 @@ public class Item implements Serializable {
 	private String name;
 
 	@ManyToOne
-	@JoinColumn(name="id_category")
+	@JoinColumn(name = "id_category")
 	private Category category;
 
 	public Item() {

@@ -17,10 +17,10 @@ public class ItemResources {
 
 	@Autowired
 	private ItemService service;
-	
+
 	@GetMapping
 	private ResponseEntity<List<Item>> findAll() {
-		List<Item> items = service.findAll();
-		return ResponseEntity.ok().body(items);
+		List<Item> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 }

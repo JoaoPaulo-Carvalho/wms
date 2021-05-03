@@ -10,11 +10,11 @@ import com.araujojpc.wms.repositories.ItemRepository;
 
 @Service
 public class ItemService {
-	
+
 	@Autowired
 	private ItemRepository repository;
 
-	public List<Item> findAll() {		
+	public List<Item> findAll() {
 		return repository.findAll();
 	}
 }
