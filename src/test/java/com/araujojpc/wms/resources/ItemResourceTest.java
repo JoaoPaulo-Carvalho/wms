@@ -2,6 +2,7 @@ package com.araujojpc.wms.resources;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,9 +42,11 @@ class ItemResourceTest {
 	Item it3;
 	Item it4;
 	Item it5;
+	
+	Item it6;
 
 	@BeforeEach
-	public void initAll() {
+	public void init() {
 		Obj = new ObjectMapper();
 
 		ct1 = new Category(1L, "Stationery");
@@ -55,6 +58,8 @@ class ItemResourceTest {
 		it3 = new Item(3L, "Eraser", ct1);
 		it4 = new Item(4L, "Laptop", ct2);
 		it5 = new Item(5L, "Guitar", ct3);
+		
+		it6 = new Item(null, "iPhone", ct2);
 	}
 
 	@Test
@@ -76,5 +81,10 @@ class ItemResourceTest {
 		this.mockMvc.perform(get("/items")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().json(Obj.writeValueAsString(list)));
 	}
-
+	
+	@Test
+	public void itemsShouldBeInsertedAndReturned() throws Exception {		
+		this.mockMvc.perform(post("/items").contentType("application/json").content(Obj.writeValueAsString(it6))).andDo(print()).andExpect(status().isCreated())
+				.andExpect(content().json(Obj.writeValueAsString(it6)));
+	}
 }

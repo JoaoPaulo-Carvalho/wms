@@ -24,4 +24,12 @@ public class ItemService {
 		Optional<Item> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+
+	public void insert(Item obj) {
+		repository.save(obj);		
+	}
+	
+	public void delete(Long id) {	
+		repository.deleteById(id);
+	}
 }
