@@ -19,17 +19,28 @@ public class ItemService {
 	public List<Item> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Item findById(Long id) {
 		Optional<Item> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public void insert(Item obj) {
-		repository.save(obj);		
+		repository.save(obj);
 	}
-	
-	public void delete(Long id) {	
+
+	public void delete(Long id) {
 		repository.deleteById(id);
+	}
+
+	public Item update(Long id, Item obj) {
+		Item entity = repository.getOne(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(Item entity, Item obj) {
+		entity.setName(obj.getName());
+		entity.setCategory(obj.getCategory());
 	}
 }
