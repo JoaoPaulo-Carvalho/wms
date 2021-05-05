@@ -1,6 +1,7 @@
 package com.araujojpc.wms.resources;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -86,5 +87,10 @@ class ItemResourceTest {
 	public void itemsShouldBeInsertedAndReturned() throws Exception {		
 		this.mockMvc.perform(post("/items").contentType("application/json").content(Obj.writeValueAsString(it6))).andDo(print()).andExpect(status().isCreated())
 				.andExpect(content().json(Obj.writeValueAsString(it6)));
+	}
+	
+	@Test
+	public void itemsShouldBeRemoved() throws Exception {		
+		this.mockMvc.perform(delete("/items/" + it1.getId())).andDo(print()).andExpect(status().isNoContent());
 	}
 }
